@@ -13,8 +13,11 @@
         android:theme="@style/Theme.Cartoon_Four_Cut_Pad"
         tools:targetApi="31">
         <activity
+            android:name=".SelectModeActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
