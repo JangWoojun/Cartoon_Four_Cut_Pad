@@ -1,11 +1,24 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
     namespace = "com.woojun.cartoon_four_cut_pad"
     compileSdk = 34
+
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { localProperties.load(it) }
+    }
+
+    val baseUrl = localProperties.getProperty("baseUrl") ?: ""
+    val apiKey = localProperties.getProperty("apiKey") ?: ""
 
     defaultConfig {
         applicationId = "com.woojun.cartoon_four_cut_pad"
@@ -15,6 +28,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "baseUrl", "\"$baseUrl\"")
+        resValue("string", "baseUrl", baseUrl)
+
+        buildConfigField("String", "apiKey", "\"$apiKey\"")
+        resValue("string", "apiKey", apiKey)
     }
 
     buildTypes {
@@ -32,6 +51,9 @@ android {
     }
     viewBinding {
         enable = true
+    }
+    buildFeatures {
+        buildConfig = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
