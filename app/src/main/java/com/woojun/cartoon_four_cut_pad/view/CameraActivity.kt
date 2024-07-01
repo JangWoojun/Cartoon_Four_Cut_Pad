@@ -1,11 +1,16 @@
 package com.woojun.cartoon_four_cut_pad.view
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,6 +21,10 @@ import com.woojun.cartoon_four_cut_pad.R
 import com.woojun.cartoon_four_cut_pad.database.BitmapData.setImage1
 import com.woojun.cartoon_four_cut_pad.database.BitmapData.setImage2
 import com.woojun.cartoon_four_cut_pad.databinding.ActivityCameraBinding
+import com.woojun.cartoon_four_cut_pad.util.UCutSetting.getUCropIntent
+import com.yalantis.ucrop.UCrop
+import java.io.ByteArrayOutputStream
+
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
@@ -82,6 +91,27 @@ class CameraActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private val uCropLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
+        if (result.resultCode == Activity.RESULT_OK) {
+            val uri = result.data?.let { UCrop.getOutput(it) }
+            if (uri != null) {
+                when(imageCount) {
+                    1 -> setImage1(getBitmap(uri))
+                    2 -> {
+                        setImage2(getBitmap(uri))
+                        startActivity(Intent(this@CameraActivity, FilterActivity::class.java))
+                        finish()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "에러", Toast.LENGTH_SHORT).show()
+            }
+        } else if (result.resultCode == UCrop.RESULT_ERROR) {
+            Toast.makeText(this, "에러", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun startCamera() {
         binding.cameraView.setLifecycleOwner(this)
         binding.cameraView.addCameraListener(object : CameraListener() {
@@ -92,14 +122,10 @@ class CameraActivity : AppCompatActivity() {
                         imageCount++
                         binding.countText.text = "${imageCount}/2"
                         binding.cameraView.post {
-                            when(imageCount) {
-                                1 -> setImage1(bitmap)
-                                2 -> {
-                                    setImage2(bitmap)
-                                    startActivity(Intent(this@CameraActivity, FilterActivity::class.java))
-                                    finish()
-                                }
-                            }
+                            val uCropIntent = getUCropIntent(this@CameraActivity, getImageUri(bitmap), cacheDir)
+
+                            uCropLauncher.launch(uCropIntent)
+                            overridePendingTransition(R.anim.anim_slide_in_from_right_fade_in, R.anim.anim_fade_out)
                         }
                     }
                 }
@@ -130,5 +156,22 @@ class CameraActivity : AppCompatActivity() {
                 binding.cameraView.flash = Flash.OFF
             }
         }
+    }
+
+    private fun getBitmap(imageUri: Uri): Bitmap {
+        return ImageDecoder.decodeBitmap(
+            ImageDecoder.createSource(
+                contentResolver,
+                imageUri
+            )
+        )
+    }
+
+    private fun getImageUri(image: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(this.contentResolver, image, "image", null)
+        return Uri.parse(path)
     }
 }
