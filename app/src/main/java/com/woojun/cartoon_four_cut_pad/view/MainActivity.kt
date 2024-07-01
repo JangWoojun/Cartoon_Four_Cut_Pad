@@ -1,4 +1,4 @@
-package com.woojun.cartoon_four_cut_pad
+package com.woojun.cartoon_four_cut_pad.view
 
 import android.content.Intent
 import android.os.Bundle

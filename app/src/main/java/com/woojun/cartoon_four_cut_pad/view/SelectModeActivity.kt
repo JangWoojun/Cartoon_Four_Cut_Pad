@@ -1,10 +1,7 @@
-package com.woojun.cartoon_four_cut_pad
+package com.woojun.cartoon_four_cut_pad.view
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.woojun.cartoon_four_cut_pad.databinding.ActivitySelectModeBinding
 
 class SelectModeActivity : AppCompatActivity() {
