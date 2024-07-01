@@ -26,6 +26,7 @@ import retrofit2.Response
 class FilterActivity : AppCompatActivity(), FilterItemClickListener {
     private lateinit var binding: ActivityFilterBinding
     private val filterList = mutableListOf<String?>(null, null)
+    private var name = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +65,11 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
                 binding.selectButton.setOnClickListener(object : OnSingleClickListener() {
                     override fun onSingleClick(v: View?) {
                         if (filterList.filterNotNull().size == 2) {
-                            startActivity(Intent(this@FilterActivity, FrameActivity::class.java))
+                            startActivity(
+                                Intent(this@FilterActivity, FrameActivity::class.java).apply {
+                                    this.putExtra("name", name)
+                                }
+                            )
                         } else {
                             Toast.makeText(this@FilterActivity, "모든 사진의 필터를 선택해주세요", Toast.LENGTH_SHORT).show()
                         }
@@ -78,6 +83,8 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
 
     override fun onClick(item: Filter, index: Int) {
         filterList[index] = item.name
+        if (name == "") name = item.name
+        else name+="/${item.name}"
         setImageFrame(index)
     }
 
