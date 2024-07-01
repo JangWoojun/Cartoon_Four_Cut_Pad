@@ -13,14 +13,19 @@ import com.woojun.cartoon_four_cut_pad.data.Filter
 import com.woojun.cartoon_four_cut_pad.database.BitmapData.getImage1
 import com.woojun.cartoon_four_cut_pad.database.BitmapData.getImage2
 import com.woojun.cartoon_four_cut_pad.databinding.ActivityFilterBinding
+import com.woojun.cartoon_four_cut_pad.network.RetrofitAPI
+import com.woojun.cartoon_four_cut_pad.network.RetrofitClient
+import com.woojun.cartoon_four_cut_pad.util.Dialog.createLoadingDialog
 import com.woojun.cartoon_four_cut_pad.util.FilterItemClickListener
 import com.woojun.cartoon_four_cut_pad.util.OnSingleClickListener
 import jp.wasabeef.glide.transformations.BlurTransformation
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FilterActivity : AppCompatActivity(), FilterItemClickListener {
     private lateinit var binding: ActivityFilterBinding
     private val filterList = mutableListOf<String?>(null, null)
-    private val filterItemList = mutableListOf<Filter>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +35,6 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
 
         val isBitmapNotNull = (getImage1() != null && getImage2() != null)
         if (isBitmapNotNull) {
-
             setImageFrame(0)
             setImageFrame(1)
             Glide.with(this@FilterActivity)
@@ -42,29 +46,32 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
                 .centerCrop()
                 .into(binding.image4)
 
-            binding.selectButton.setOnClickListener(object : OnSingleClickListener() {
-                override fun onSingleClick(v: View?) {
-                    if (filterList.filterNotNull().size == 2) {
-                        startActivity(Intent(this@FilterActivity, FrameActivity::class.java))
-                    } else {
-                        Toast.makeText(this@FilterActivity, "모든 사진의 필터를 선택해주세요", Toast.LENGTH_SHORT).show()
+            getFilter { filterItemList ->
+                binding.imageFrame1.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View?) {
+                        val bottomSheet = FilterBottomSheetDialog(filterItemList.toMutableList(), 0, this@FilterActivity)
+                        bottomSheet.show(supportFragmentManager, bottomSheet.tag)
                     }
-                }
-            })
+                })
 
-            binding.imageFrame1.setOnClickListener(object : OnSingleClickListener() {
-                override fun onSingleClick(v: View?) {
-                    val bottomSheet = FilterBottomSheetDialog(filterItemList, 0, this@FilterActivity)
-                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-                }
-            })
+                binding.imageFrame2.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View?) {
+                        val bottomSheet = FilterBottomSheetDialog(filterItemList.toMutableList(), 1, this@FilterActivity)
+                        bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                    }
+                })
 
-            binding.imageFrame2.setOnClickListener(object : OnSingleClickListener() {
-                override fun onSingleClick(v: View?) {
-                    val bottomSheet = FilterBottomSheetDialog(filterItemList, 1, this@FilterActivity)
-                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-                }
-            })
+                binding.selectButton.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View?) {
+                        if (filterList.filterNotNull().size == 2) {
+                            startActivity(Intent(this@FilterActivity, FrameActivity::class.java))
+                        } else {
+                            Toast.makeText(this@FilterActivity, "모든 사진의 필터를 선택해주세요", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            }
+
         }
 
     }
@@ -106,5 +113,39 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
                     .into(binding.image4)
             }
         }
+    }
+
+    private fun getFilter(callback: (List<Filter>) -> Unit) {
+        val retrofitAPI = RetrofitClient.getInstance().create(RetrofitAPI::class.java)
+        val call: Call<List<Filter>> = retrofitAPI.getFilter()
+
+        val (loadingDialog, setDialogText) = createLoadingDialog(this)
+        loadingDialog.show()
+        setDialogText("필터 로딩 중")
+
+        call.enqueue(object : Callback<List<Filter>> {
+            override fun onResponse(
+                call: Call<List<Filter>>,
+                response: Response<List<Filter>>
+            ) {
+                if (response.isSuccessful) {
+                    setDialogText("필터 로딩 완료")
+                    loadingDialog.dismiss()
+                    callback(response.body()!!)
+                } else {
+                    setDialogText("필터 로딩 실패")
+                    loadingDialog.dismiss()
+                    Toast.makeText(this@FilterActivity, "A.I 필터를 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
+                    callback(listOf())
+                }
+            }
+
+            override fun onFailure(call: Call<List<Filter>>, t: Throwable) {
+                setDialogText("필터 로딩 실패")
+                loadingDialog.dismiss()
+                Toast.makeText(this@FilterActivity, "A.I 필터를 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
+                callback(listOf())
+            }
+        })
     }
 }
