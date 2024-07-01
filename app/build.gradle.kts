@@ -51,4 +51,9 @@ dependencies {
 
     api(libs.cameraview)
     implementation(libs.ucrop)
+
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+    implementation(libs.glide.transformations)
+
 }
