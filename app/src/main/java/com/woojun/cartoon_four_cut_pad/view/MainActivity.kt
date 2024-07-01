@@ -7,9 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.woojun.cartoon_four_cut_pad.databinding.ActivityMainBinding
 import com.woojun.cartoon_four_cut_pad.util.OnSingleClickListener
-import com.woojun.cartoon_four_cut_pad.util.VisibilityControlListener
 
-class MainActivity : AppCompatActivity(), VisibilityControlListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private var backPressedTime: Long = 0
@@ -38,13 +37,4 @@ class MainActivity : AppCompatActivity(), VisibilityControlListener {
         backPressedTime = System.currentTimeMillis()
     }
 
-    override fun onVisibilityChange(visible: Boolean) {
-        if (!visible) {
-            binding.defaultImage.visibility = View.GONE
-            binding.photoRecyclerView.visibility = View.VISIBLE
-        } else {
-            binding.defaultImage.visibility = View.VISIBLE
-            binding.photoRecyclerView.visibility = View.GONE
-        }
-    }
 }
