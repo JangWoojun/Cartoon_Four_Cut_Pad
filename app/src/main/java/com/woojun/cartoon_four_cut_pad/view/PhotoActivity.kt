@@ -76,7 +76,7 @@ class PhotoActivity : AppCompatActivity() {
                             .into(binding.image1)
                         Glide.with(this@PhotoActivity)
                             .load(uri)
-                            .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
+                            .centerCrop()
                             .into(binding.image3)
                         imageList[0] = (Pair(selectFrame, uri))
                     }
@@ -87,7 +87,7 @@ class PhotoActivity : AppCompatActivity() {
                             .into(binding.image2)
                         Glide.with(this@PhotoActivity)
                             .load(uri)
-                            .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
+                            .centerCrop()
                             .into(binding.image4)
                         imageList[1] = (Pair(selectFrame, uri))
                     }
