@@ -176,30 +176,6 @@
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout"
                 app:strokeColor="@color/gray_30">
 
-                <LinearLayout
-                    android:id="@+id/default_image3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/images_mode_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/s_semibold"
-                        android:gravity="center"
-                        android:text="클릭하여\n이미지를 추가하세요"
-                        android:textColor="@color/gray_70"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
 
                 <ImageView
                     android:id="@+id/image3"
@@ -223,29 +199,6 @@
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout"
                 app:strokeColor="@color/gray_30">
 
-                <LinearLayout
-                    android:id="@+id/default_image4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/images_mode_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/s_semibold"
-                        android:gravity="center"
-                        android:text="클릭하여\n이미지를 추가하세요"
-                        android:textColor="@color/gray_70"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/image4"
