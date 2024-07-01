@@ -57,4 +57,7 @@ dependencies {
     implementation(libs.glide.transformations)
 
     implementation(libs.androidx.viewpager2)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
