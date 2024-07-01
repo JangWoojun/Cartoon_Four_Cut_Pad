@@ -50,4 +50,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     api(libs.cameraview)
+    implementation(libs.ucrop)
 }
