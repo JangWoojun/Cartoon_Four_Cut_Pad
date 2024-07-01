@@ -103,6 +103,7 @@ class PhotoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPhotoBinding.inflate(layoutInflater)
+        overridePendingTransition(R.anim.anim_slide_in_from_right_fade_in, R.anim.anim_fade_out)
         setContentView(binding.root)
 
         binding.imageFrame1.setOnClickListener(object : OnSingleClickListener() {
@@ -150,6 +151,10 @@ class PhotoActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
+    }
 
     private fun getBitmap(imageUri: Uri): Bitmap {
         return ImageDecoder.decodeBitmap(
