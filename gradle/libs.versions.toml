@@ -13,9 +13,11 @@ material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 ucrop = "2.2.8-native"
+viewpager2 = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 cameraview = { module = "com.otaliastudios:cameraview", version.ref = "cameraview" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }

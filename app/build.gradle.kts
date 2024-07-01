@@ -56,4 +56,5 @@ dependencies {
     annotationProcessor(libs.compiler)
     implementation(libs.glide.transformations)
 
+    implementation(libs.androidx.viewpager2)
 }
