@@ -26,7 +26,8 @@ import retrofit2.Response
 class FilterActivity : AppCompatActivity(), FilterItemClickListener {
     private lateinit var binding: ActivityFilterBinding
     private val filterList = mutableListOf<String?>(null, null)
-    private var name = ""
+    private var name1 = ""
+    private var name2 = ""
     private lateinit var bottomSheet: FilterBottomSheetDialog
 
 
@@ -63,7 +64,7 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
                         if (filterList.filterNotNull().size == 2) {
                             startActivity(
                                 Intent(this@FilterActivity, FrameActivity::class.java).apply {
-                                    this.putExtra("name", name)
+                                    this.putExtra("name", "${name1}/${name2}")
                                 }
                             )
                         } else {
@@ -79,8 +80,8 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
 
     override fun onClick(item: Filter, index: Int) {
         filterList[index] = item.name
-        if (name == "") name = item.name
-        else name+="/${item.name}"
+        if (index == 0) name1 = item.name
+        else name2 = item.name
         setImageFrame(index)
         bottomSheet.dismiss()
     }
