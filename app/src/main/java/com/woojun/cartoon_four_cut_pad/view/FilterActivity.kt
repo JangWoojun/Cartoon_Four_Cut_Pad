@@ -27,6 +27,8 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
     private lateinit var binding: ActivityFilterBinding
     private val filterList = mutableListOf<String?>(null, null)
     private var name = ""
+    private lateinit var bottomSheet: FilterBottomSheetDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,14 +46,14 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
             getFilter { filterItemList ->
                 binding.imageFrame1.setOnClickListener(object : OnSingleClickListener() {
                     override fun onSingleClick(v: View?) {
-                        val bottomSheet = FilterBottomSheetDialog(filterItemList.toMutableList(), 0, this@FilterActivity)
+                        bottomSheet = FilterBottomSheetDialog(filterItemList.toMutableList(), 0, this@FilterActivity)
                         bottomSheet.show(supportFragmentManager, bottomSheet.tag)
                     }
                 })
 
                 binding.imageFrame2.setOnClickListener(object : OnSingleClickListener() {
                     override fun onSingleClick(v: View?) {
-                        val bottomSheet = FilterBottomSheetDialog(filterItemList.toMutableList(), 1, this@FilterActivity)
+                        bottomSheet = FilterBottomSheetDialog(filterItemList.toMutableList(), 1, this@FilterActivity)
                         bottomSheet.show(supportFragmentManager, bottomSheet.tag)
                     }
                 })
@@ -80,6 +82,7 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
         if (name == "") name = item.name
         else name+="/${item.name}"
         setImageFrame(index)
+        bottomSheet.dismiss()
     }
 
     override fun onBackPressed() {
