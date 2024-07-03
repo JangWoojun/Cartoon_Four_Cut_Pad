@@ -12,25 +12,30 @@ import com.woojun.cartoon_four_cut_pad.adapter.FilterAdapter
 import com.woojun.cartoon_four_cut_pad.data.Filter
 import com.woojun.cartoon_four_cut_pad.util.FilterItemClickListener
 
-class FilterBottomSheetDialog(private val itemList: MutableList<Filter>, private val index: Int, private val filterItemClickListener: FilterItemClickListener) : BottomSheetDialogFragment()
-{
+
+class FilterBottomSheetDialog(
+    private val itemList: MutableList<Filter>,
+    private val index: Int,
+    private val filterItemClickListener: FilterItemClickListener
+) : BottomSheetDialogFragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View
-    {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.filter_sheet_layout, container, false)
-        return view
+    ): View {
+        return inflater.inflate(R.layout.filter_sheet_layout, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val filterList = view?.findViewById<RecyclerView>(R.id.filter_list)
-
         filterList?.adapter = FilterAdapter(itemList, index, filterItemClickListener)
         filterList?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_FRAME, R.style.BottomSheetDialog)
     }
 }
