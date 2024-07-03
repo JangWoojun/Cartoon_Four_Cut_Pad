@@ -38,14 +38,8 @@ class FilterActivity : AppCompatActivity(), FilterItemClickListener {
         if (isBitmapNotNull) {
             setImageFrame(0)
             setImageFrame(1)
-            Glide.with(this@FilterActivity)
-                .load(getImage1())
-                .centerCrop()
-                .into(binding.image3)
-            Glide.with(this@FilterActivity)
-                .load(getImage2())
-                .centerCrop()
-                .into(binding.image4)
+            setImageFrame(2)
+            setImageFrame(3)
 
             getFilter { filterItemList ->
                 binding.imageFrame1.setOnClickListener(object : OnSingleClickListener() {

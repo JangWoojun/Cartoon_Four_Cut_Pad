@@ -8,13 +8,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -76,7 +73,7 @@ class PhotoActivity : AppCompatActivity() {
                             .into(binding.image1)
                         Glide.with(this@PhotoActivity)
                             .load(uri)
-                            .centerCrop()
+                            .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
                             .into(binding.image3)
                         imageList[0] = (Pair(selectFrame, uri))
                     }
@@ -87,7 +84,7 @@ class PhotoActivity : AppCompatActivity() {
                             .into(binding.image2)
                         Glide.with(this@PhotoActivity)
                             .load(uri)
-                            .centerCrop()
+                            .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
                             .into(binding.image4)
                         imageList[1] = (Pair(selectFrame, uri))
                     }
