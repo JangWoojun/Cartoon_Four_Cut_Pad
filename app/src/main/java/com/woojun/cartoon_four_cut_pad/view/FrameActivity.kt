@@ -81,6 +81,7 @@ class FrameActivity : AppCompatActivity() {
                         val intent = Intent(this@FrameActivity, DownloadActivity::class.java)
                         uploadAiImages(name, loadingDialog, setDialogText) { uploadResponse ->
                             intent.putStringArrayListExtra("fileName", arrayListOf(uploadResponse[0], uploadResponse[1]))
+                            intent.putExtra("frameName", list[frameIndex].frameResponse.name)
                             loadingDialog.dismiss()
                             startActivity(intent)
                         }
