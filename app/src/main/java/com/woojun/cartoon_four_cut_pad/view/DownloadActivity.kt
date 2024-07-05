@@ -44,7 +44,7 @@ class DownloadActivity : AppCompatActivity() {
 
         if (fileName != null) {
             CoroutineScope(Dispatchers.IO).launch {
-                sleep(20000)
+                sleep(15000)
                 val frameImage = postPrint(PostPrintItem(frameName, fileName))
                 withContext(Dispatchers.Main) {
                     frameImage.let {
