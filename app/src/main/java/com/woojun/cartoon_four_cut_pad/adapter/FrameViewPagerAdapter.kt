@@ -6,6 +6,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.woojun.cartoon_four_cut_pad.data.Frame
 import com.woojun.cartoon_four_cut_pad.databinding.PhotoFrameLayoutBinding
@@ -42,19 +43,27 @@ class FrameViewPagerAdapter(private val frameItemList: List<Frame>) : RecyclerVi
             Glide.with(binding.root.context)
                 .load(frameItem.images[0])
                 .centerCrop()
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.image1)
             Glide.with(binding.root.context)
                 .load(frameItem.images[1])
                 .centerCrop()
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.image2)
 
             Glide.with(binding.root.context)
                 .load(frameItem.images[0])
                 .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.image3)
             Glide.with(binding.root.context)
                 .load(frameItem.images[1])
                 .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.image4)
 
             binding.filterText.text = frameItem.frameResponse.name
@@ -63,12 +72,18 @@ class FrameViewPagerAdapter(private val frameItemList: List<Frame>) : RecyclerVi
 
             Glide.with(binding.root.context)
                 .load(frameResponse.top)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.topImage)
             Glide.with(binding.root.context)
                 .load(frameResponse.bottom)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.bottomImage)
             Glide.with(binding.root.context)
                 .load(frameResponse.background)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.backgroundImage)
         }
     }

@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.print.PrintHelper
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.woojun.cartoon_four_cut_pad.R
@@ -28,7 +29,7 @@ import java.lang.Thread.sleep
 
 class DownloadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDownloadBinding
-    private lateinit var imageBitmap: Bitmap
+    private var imageBitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +47,26 @@ class DownloadActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 val frameImage = postPrint(PostPrintItem(frameName, fileName))
                 withContext(Dispatchers.Main) {
-                    frameImage.let {
+                    frameImage?.let {
+                        Log.d("확인", "프리뷰 URL: ${it.preview}")
                         Glide.with(this@DownloadActivity)
-                            .load(frameImage!!.preview)
+                            .asBitmap()
+                            .load(it.preview)
                             .centerCrop()
-                            .into(binding.imageView)
-                        loadImageFromUrl(frameImage.result)
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .into(object : CustomTarget<Bitmap>() {
+                                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                    imageBitmap = resource
+                                    binding.imageView.setImageBitmap(resource)
+                                    Log.d("확인", "URL에서 이미지 로드 성공")
+                                }
+
+                                override fun onLoadCleared(placeholder: Drawable?) {
+                                }
+                            })
+                    } ?: run {
+                        Toast.makeText(this@DownloadActivity, "이미지를 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
                     }
                     loadingDialog.dismiss()
                 }
@@ -71,29 +86,15 @@ class DownloadActivity : AppCompatActivity() {
         })
 
         binding.printButton.setOnClickListener {
-            if (this::imageBitmap.isInitialized) doPhotoPrint(imageBitmap)
-            else Toast.makeText(this@DownloadActivity, "다시 시도해주세요", Toast.LENGTH_SHORT).show()
+            imageBitmap?.let { doPhotoPrint(it) } ?: run {
+                Toast.makeText(this@DownloadActivity, "다시 시도해주세요", Toast.LENGTH_SHORT).show()
+            }
         }
-
     }
 
     override fun onBackPressed() {
         overridePendingTransition(R.anim.anim_fade_out, R.anim.vertical_exit)
         super.onBackPressed()
-    }
-
-    private fun loadImageFromUrl(url: String) {
-        Glide.with(this)
-            .asBitmap()
-            .load(url)
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    imageBitmap = resource
-                }
-
-                override fun onLoadCleared(placeholder: Drawable?) {
-                }
-            })
     }
 
     private suspend fun postPrint(postPrintItem: PostPrintItem): Print? {
@@ -102,10 +103,10 @@ class DownloadActivity : AppCompatActivity() {
                 val retrofitAPI = RetrofitClient.getInstance().create(RetrofitAPI::class.java)
                 val response = retrofitAPI.postPrint(postPrintItem)
                 if (response.isSuccessful) {
-                    Log.d("확인", "잘 옴")
+                    Log.d("확인", "프린트 요청 성공: ${response.body()?.preview}")
                     response.body()
                 } else {
-                    Log.d("확인", "에러났음")
+                    Log.d("확인", "프린트 요청 실패")
                     null
                 }
             }
@@ -118,13 +119,8 @@ class DownloadActivity : AppCompatActivity() {
     }
 
     private fun doPhotoPrint(bitmap: Bitmap) {
-        this.also { context ->
-            PrintHelper(context).apply {
-                scaleMode = PrintHelper.SCALE_MODE_FILL
-            }.also { printHelper ->
-                printHelper.printBitmap("세명컴퓨터고등학교 - 카툰네컷", bitmap)
-            }
-        }
+        PrintHelper(this).apply {
+            scaleMode = PrintHelper.SCALE_MODE_FILL
+        }.printBitmap("세명컴퓨터고등학교 - 카툰네컷", bitmap)
     }
-
 }
