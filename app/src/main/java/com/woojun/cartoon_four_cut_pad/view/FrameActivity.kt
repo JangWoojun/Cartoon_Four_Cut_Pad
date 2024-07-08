@@ -185,7 +185,7 @@ class FrameActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 setDialogText("변환 실패")
                 loadingDialog.dismiss()
-                Toast.makeText(this@FrameActivity, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@FrameActivity, t.toString(), Toast.LENGTH_SHORT).show()
             }
         })
     }
