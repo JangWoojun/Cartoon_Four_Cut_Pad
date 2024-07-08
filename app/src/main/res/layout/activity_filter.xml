@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/s_semibold"
         android:gravity="center_vertical"
         android:text="사진을 클릭하여\n필터를 선택해주세요"

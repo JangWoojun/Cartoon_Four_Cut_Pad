@@ -9,7 +9,7 @@
     tools:context=".view.DownloadActivity">
 
     <TextView
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="48dp"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -24,13 +24,13 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/main_frame"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H, 345:412"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
         app:cardBackgroundColor="@color/gray_20"
         app:cardCornerRadius="8dp"
+        app:layout_constraintDimensionRatio="H, 345:412"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -38,7 +38,7 @@
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </com.google.android.material.card.MaterialCardView>
 
