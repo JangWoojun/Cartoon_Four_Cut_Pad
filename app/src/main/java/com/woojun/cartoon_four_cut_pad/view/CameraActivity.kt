@@ -21,9 +21,9 @@ import com.woojun.cartoon_four_cut_pad.R
 import com.woojun.cartoon_four_cut_pad.database.BitmapData.setImage1
 import com.woojun.cartoon_four_cut_pad.database.BitmapData.setImage2
 import com.woojun.cartoon_four_cut_pad.databinding.ActivityCameraBinding
-import com.woojun.cartoon_four_cut_pad.util.UCutSetting.getUCropIntent
 import com.yalantis.ucrop.UCrop
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class CameraActivity : AppCompatActivity() {
@@ -123,7 +123,21 @@ class CameraActivity : AppCompatActivity() {
                         imageCount++
                         binding.countText.text = "${imageCount}/2"
                         binding.cameraView.post {
-                            val uCropIntent = getUCropIntent(this@CameraActivity, getImageUri(bitmap), cacheDir)
+                            val option = UCrop.Options().apply {
+                                val pinkColor = ContextCompat.getColor(this@CameraActivity, R.color.pink)
+                                val whiteColor = ContextCompat.getColor(this@CameraActivity, R.color.white)
+
+                                setToolbarColor(pinkColor)
+                                setStatusBarColor(pinkColor)
+
+                                setToolbarTitle("편집하기")
+                                setRootViewBackgroundColor(whiteColor)
+                            }
+                            val uCropIntent = UCrop.of(getImageUri(bitmap), Uri.fromFile(File(cacheDir, "${System.currentTimeMillis()}.png")))
+                                .withAspectRatio(500f, 500f)
+                                .withMaxResultSize(500, 500)
+                                .withOptions(option)
+                                .getIntent(this@CameraActivity)
 
                             uCropLauncher.launch(uCropIntent)
                             overridePendingTransition(R.anim.anim_slide_in_from_right_fade_in, R.anim.anim_fade_out)
