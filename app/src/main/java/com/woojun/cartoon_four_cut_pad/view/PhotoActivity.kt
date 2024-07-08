@@ -139,13 +139,6 @@ class PhotoActivity : AppCompatActivity() {
             }
         })
 
-        binding.backButton.setOnClickListener(object : OnSingleClickListener() {
-            override fun onSingleClick(v: View?) {
-                finish()
-                overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
-            }
-        })
-
     }
 
     override fun onBackPressed() {
