@@ -5,6 +5,7 @@ import com.woojun.cartoon_four_cut_pad.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
@@ -22,6 +23,7 @@ object RetrofitClient {
             instance = Retrofit.Builder()
                 .baseUrl(BuildConfig.baseUrl)
                 .client(okHttpClient)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         }
