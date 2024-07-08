@@ -44,7 +44,6 @@ class DownloadActivity : AppCompatActivity() {
 
         if (fileName != null) {
             CoroutineScope(Dispatchers.IO).launch {
-                sleep(15000)
                 val frameImage = postPrint(PostPrintItem(frameName, fileName))
                 withContext(Dispatchers.Main) {
                     frameImage.let {
@@ -98,9 +97,10 @@ class DownloadActivity : AppCompatActivity() {
                 val retrofitAPI = RetrofitClient.getInstance().create(RetrofitAPI::class.java)
                 val response = retrofitAPI.postPrint(postPrintItem)
                 if (response.isSuccessful) {
+                    Log.d("확인", "잘 옴")
                     response.body()
                 } else {
-                    Log.d("확인", "오류1")
+                    Log.d("확인", "에러났음")
                     null
                 }
             }
