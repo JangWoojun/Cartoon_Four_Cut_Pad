@@ -77,6 +77,11 @@ class DownloadActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        overridePendingTransition(R.anim.anim_fade_out, R.anim.vertical_exit)
+        super.onBackPressed()
+    }
+
     private fun loadImageFromUrl(url: String) {
         Glide.with(this)
             .asBitmap()

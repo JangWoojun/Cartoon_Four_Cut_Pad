@@ -95,6 +95,11 @@ class FrameActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
+    }
+
     private fun createFrameItem(name: String, response: FrameResponse): Frame {
         return Frame(
             name,
