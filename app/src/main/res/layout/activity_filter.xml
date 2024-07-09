@@ -32,6 +32,7 @@
         app:layout_constraintDimensionRatio="H, 345:412"
         app:cardBackgroundColor="@color/gray_20"
         app:cardCornerRadius="8dp"
+        app:strokeColor="@color/gray_30"
         app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <androidx.constraintlayout.widget.ConstraintLayout
