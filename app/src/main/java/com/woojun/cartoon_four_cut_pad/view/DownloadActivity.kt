@@ -25,7 +25,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Thread.sleep
 
 class DownloadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDownloadBinding
@@ -50,15 +49,20 @@ class DownloadActivity : AppCompatActivity() {
                     frameImage?.let {
                         Log.d("확인", "프리뷰 URL: ${it.preview}")
                         Glide.with(this@DownloadActivity)
-                            .asBitmap()
                             .load(it.preview)
+                            .centerCrop()
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .into(binding.imageView)
+                        Glide.with(this@DownloadActivity)
+                            .asBitmap()
+                            .load(it.result)
                             .centerCrop()
                             .skipMemoryCache(true)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(object : CustomTarget<Bitmap>() {
                                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                                     imageBitmap = resource
-                                    binding.imageView.setImageBitmap(resource)
                                     Log.d("확인", "URL에서 이미지 로드 성공")
                                 }
 
@@ -120,7 +124,7 @@ class DownloadActivity : AppCompatActivity() {
 
     private fun doPhotoPrint(bitmap: Bitmap) {
         PrintHelper(this).apply {
-            scaleMode = PrintHelper.SCALE_MODE_FILL
+            scaleMode = PrintHelper.SCALE_MODE_FIT
         }.printBitmap("세명컴퓨터고등학교 - 카툰네컷", bitmap)
     }
 }
