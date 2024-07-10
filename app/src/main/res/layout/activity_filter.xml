@@ -56,15 +56,16 @@
                 android:id="@+id/image_frame_1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="4dp"
                 android:layout_marginStart="15.5dp"
                 android:layout_marginEnd="5.9dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/image_frame_2"
                 app:layout_constraintDimensionRatio="W, 1:1"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:strokeColor="@color/gray_30">
 
 
                 <ImageView
@@ -78,15 +79,16 @@
                 android:id="@+id/image_frame_2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="12dp"
                 android:layout_marginStart="15.5dp"
                 android:layout_marginEnd="5.9dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="4dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/background_image"
                 app:layout_constraintDimensionRatio="W, 1:1"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_frame_1">
+                app:strokeColor="@color/gray_30">
 
 
                 <ImageView
@@ -104,11 +106,12 @@
                 android:layout_marginEnd="15.5dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="4dp"
-                android:layout_marginBottom="12dp"
-                app:layout_constraintBottom_toTopOf="@+id/image_frame_4"
+                android:layout_marginTop="16dp"
                 app:layout_constraintDimensionRatio="W, 1:1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout">
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/gray_30">
 
 
                 <ImageView
@@ -124,13 +127,14 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="5.9dp"
                 android:layout_marginEnd="15.5dp"
+                android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="4dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="W, 1:1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout">
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/image_frame_3"
+                app:strokeColor="@color/gray_30">
 
 
                 <ImageView
@@ -145,9 +149,9 @@
                 android:id="@+id/top_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/image_frame_3"
-                app:layout_constraintEnd_toEndOf="@+id/image_frame_3"
-                app:layout_constraintStart_toStartOf="@+id/image_frame_3"
+                app:layout_constraintBottom_toTopOf="@+id/image_frame_1"
+                app:layout_constraintEnd_toEndOf="@+id/image_frame_1"
+                app:layout_constraintStart_toStartOf="@+id/image_frame_1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -156,9 +160,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/image_frame_2"
-                app:layout_constraintStart_toStartOf="@+id/image_frame_2"
-                app:layout_constraintTop_toBottomOf="@+id/image_frame_2" />
+                app:layout_constraintEnd_toEndOf="@+id/image_frame_4"
+                app:layout_constraintStart_toStartOf="@+id/image_frame_4"
+                app:layout_constraintTop_toBottomOf="@+id/image_frame_4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
