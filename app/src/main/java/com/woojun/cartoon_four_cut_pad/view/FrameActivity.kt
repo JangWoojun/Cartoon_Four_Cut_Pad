@@ -100,17 +100,6 @@ class FrameActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
     }
 
-    private fun createFrameItem(name: String, response: FrameResponse): Frame {
-        return Frame(
-            name,
-            response,
-            mutableListOf(
-                getImage1()!!,
-                getImage2()!!
-            )
-        )
-    }
-
     private suspend fun getFrame(): List<FrameResponse>? {
         val (loadingDialog, setDialogText) = createLoadingDialog(this)
         loadingDialog.show()
@@ -146,15 +135,9 @@ class FrameActivity : AppCompatActivity() {
 
     private suspend fun generateFrameItemList(name: String): List<Frame> {
         return withContext(Dispatchers.Main) {
-            val list = mutableListOf(createFrameItem(
-                name,
-                FrameResponse("", "", "", "카툰네컷 기본 프레임 - 화이트")
-            ))
-            getFrame()?.forEach {
-                list.add(createFrameItem(name, it))
+            getFrame()!!.map {
+                Frame(name, it)
             }
-
-            list
         }
     }
 

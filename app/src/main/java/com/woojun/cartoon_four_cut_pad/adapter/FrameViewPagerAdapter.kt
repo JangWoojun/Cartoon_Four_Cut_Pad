@@ -9,6 +9,8 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.woojun.cartoon_four_cut_pad.data.Frame
+import com.woojun.cartoon_four_cut_pad.database.BitmapData.getImage1
+import com.woojun.cartoon_four_cut_pad.database.BitmapData.getImage2
 import com.woojun.cartoon_four_cut_pad.databinding.PhotoFrameLayoutBinding
 import com.woojun.cartoon_four_cut_pad.util.Utils.dpToPx
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -41,26 +43,26 @@ class FrameViewPagerAdapter(private val frameItemList: List<Frame>) : RecyclerVi
             }
 
             Glide.with(binding.root.context)
-                .load(frameItem.images[0])
+                .load(getImage1())
                 .centerCrop()
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.image1)
             Glide.with(binding.root.context)
-                .load(frameItem.images[1])
+                .load(getImage2())
                 .centerCrop()
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.image2)
 
             Glide.with(binding.root.context)
-                .load(frameItem.images[0])
+                .load(getImage1())
                 .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(binding.image3)
             Glide.with(binding.root.context)
-                .load(frameItem.images[1])
+                .load(getImage2())
                 .transform(MultiTransformation(CenterCrop(), BlurTransformation(15, 3)))
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
