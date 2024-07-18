@@ -185,8 +185,7 @@ class CameraActivity : AppCompatActivity() {
     private fun getImageUri(image: Bitmap): Uri {
         val bytes = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path =
-            MediaStore.Images.Media.insertImage(this.contentResolver, image, "image", null)
+        val path = MediaStore.Images.Media.insertImage(this.contentResolver, image, "IMG_" + System.currentTimeMillis(), null)
         return Uri.parse(path)
     }
 }
