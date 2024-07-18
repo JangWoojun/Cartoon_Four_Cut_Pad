@@ -126,6 +126,8 @@ class CameraActivity : AppCompatActivity() {
             override fun onPictureTaken(result: PictureResult) {
                 result.toBitmap { bitmap ->
                     if (bitmap != null) {
+                        sound.play(MediaActionSound.SHUTTER_CLICK)
+
                         binding.cameraView.post {
                             val option = UCrop.Options().apply {
                                 val pinkColor = ContextCompat.getColor(this@CameraActivity, R.color.pink)
