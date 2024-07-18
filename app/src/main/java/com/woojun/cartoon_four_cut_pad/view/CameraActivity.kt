@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.media.MediaActionSound
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -31,6 +32,8 @@ class CameraActivity : AppCompatActivity() {
 
     private var isFlash = false
     private var imageCount = 0
+
+    private val sound by lazy { MediaActionSound() }
 
     companion object {
         const val CAMERA_PERMISSION_CODE = 999
@@ -97,6 +100,9 @@ class CameraActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val uri = result.data?.let { UCrop.getOutput(it) }
             if (uri != null) {
+                imageCount++
+                binding.countText.text = "${imageCount}/2"
+
                 when(imageCount) {
                     1 -> setImage1(getBitmap(uri))
                     2 -> {
@@ -120,8 +126,6 @@ class CameraActivity : AppCompatActivity() {
             override fun onPictureTaken(result: PictureResult) {
                 result.toBitmap { bitmap ->
                     if (bitmap != null) {
-                        imageCount++
-                        binding.countText.text = "${imageCount}/2"
                         binding.cameraView.post {
                             val option = UCrop.Options().apply {
                                 val pinkColor = ContextCompat.getColor(this@CameraActivity, R.color.pink)
