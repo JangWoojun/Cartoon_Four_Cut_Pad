@@ -19,12 +19,13 @@
 ### 스샷
 
 <div style="text-align: left;">    
-    <img src="https://github.com/user-attachments/assets/9202aaa9-d725-4810-9cbc-461b3899d16d"  width="400" height="800"/>
-    <img src="https://github.com/user-attachments/assets/186b3b5d-7d33-4d87-abba-a5d72a8a9b5e"  width="400" height="800"/>
-    <br>
-    <img src="https://github.com/user-attachments/assets/e9fa6d07-9360-4c5d-ba28-268c4c52b19c"  width="200" height="400"/>
-    <img src="https://github.com/user-attachments/assets/3573d95c-f1c2-4216-9f8b-0e408d1ddc9b"  width="200" height="400"/>
-    <img src="https://github.com/user-attachments/assets/c90f548c-a30b-42e6-97b8-1a9157dd94c9"  width="200" height="400"/>
+    <img src="https://github.com/user-attachments/assets/a336df55-e3e1-4d2a-a347-b99e38b41ea9"  width="200" height="400"/>
+    <img src="https://github.com/user-attachments/assets/a09e8a0a-8e4b-4fa6-b2b8-9e3ddafc35db"  width="200" height="400"/>
+    <img src="https://github.com/user-attachments/assets/c52c834a-d163-4bbd-b094-60fa9d4f7de9"  width="200" height="400"/>
+    <img src="https://github.com/user-attachments/assets/58391518-4e08-4c19-a680-a93c6e122451"  width="200" height="400"/>
+    <img src="https://github.com/user-attachments/assets/1dc97151-1129-411b-92f6-13ee37665a00"  width="200" height="400"/>
+    <img src="https://github.com/user-attachments/assets/fa2c698e-ca72-4078-97cc-f891e051c0c0"  width="200" height="400"/>
+    <img src="https://github.com/user-attachments/assets/efe46c16-7fd2-4425-8985-c96ed0934098"  width="200" height="400"/>
 </div>
 
 ### 시연 영상
@@ -37,22 +38,17 @@ https://github.com/user-attachments/assets/f39b71f6-cb8b-4a90-9a82-647c91925d61
 
 ## 구현 기능
 
-- 회원가입, 로그인
-    - 카카오 OAuth
 - 홈
-    - 카툰 네컷 히스토리
-        - 다운로드
-        - 삭제
     - 사진 촬영 바로가기
-- 카툰 네컷 생성
-    - 제작 방식
-        - 촬영
-        - 이미지
+- 제작 방식
     - 카메라
-    - 필터
-        - 일반 필터
-        - A.I 필터
-    - 다운로드
+    - 이미지
+- 제작
+    - A.I 필터
+    - 프레임
+- 완료
+    - 프린터 출력
+
 <br>
 
 ## 배운 점 & 아쉬운 점 & 이슈
@@ -61,13 +57,12 @@ https://github.com/user-attachments/assets/f39b71f6-cb8b-4a90-9a82-647c91925d61
 
 ## 느낀 점
 
-어데고 프로젝트에서 Kotlin과 XML을 사용한 Android 앱 개발 총괄 및 구글 플레이 스토어 출시를 담당하였으며 
-개발한 주요 기능으로는 포그라운드 위치 전송 서비스, 딥링크 구현이 있습니다. 해당 앱을 통해 처음으로 포그라운드 서비스 및 Goolge OAuth와
-위치 관련 기능, 딥링크 등 새로운 기술 사용 및 습득 경험과 다양한 사람들과 하는 팀 프로젝트 경험을 얻을 수 있었습니다. 
-또한 해당 프로젝트를 잘맞는 개발 관련 친구들을 알게 되었고 서개모라는 커뮤니티 겸 팀을 만들게 되었습니다. 
-이외에 아쉬운 점과 느낀 점이 많지만 나머지는 블로그에 작성하겠습니다
+카툰 네컷 프로젝트에서 Kotlin과 XML을 사용한 Android 앱 개발 총괄 및 구글 플레이 스토어 출시를 담당하였으며 
+개발한 주요 기능으로는 카메라 촬영 및 프린터 출력 연결 구현이 있습니다. 해당 앱을 통해 처음으로 프린터 연결을 통한
+출력하는 기능을 경험 했으며 세명컴퓨터고등학교 인공지능 소프트웨어과 중학교 홍보 때 앱으로 사용되어 많은 중학생분들의 호응 받아 
+뿌듯하였습니다. 이외에 아쉬운 점과 느낀 점이 많지만 나머지는 블로그에 작성하겠습니다.
 
 ## 설치 방법
 
-- 구글 플레이스토어 주소 : [링크]() (릴리즈 버전, 위치 X)
+- 구글 플레이스토어 주소 : [링크]()
 
