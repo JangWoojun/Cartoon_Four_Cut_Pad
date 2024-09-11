@@ -28,6 +28,7 @@
 
     <com.otaliastudios.cameraview.CameraView
         android:id="@+id/camera_view"
+        app:cameraFacing="front"
         android:keepScreenOn="true"
         app:cameraRequestPermissions="true"
         android:layout_width="match_parent"
